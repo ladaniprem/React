@@ -1,0 +1,69 @@
+import { useId } from 'react'
+
+function InputBox({
+  label,
+  amount,
+  onAmountChange,
+  onCurrencyChange,
+  currencyOptions = [],
+  selectedCurrency = "",
+  amountDisabled = false,
+  currencyDisabled = false,
+  className = "",
+}) {
+
+  const amountInputId = useId();
+  
+   // useId hook is used to generate a unique id for the input element, which can be useful for accessibility and testing purposes.
+  // Note :- do not use to generate key in a list, use it only for unique ids in forms or other elements where a unique identifier is needed.
+
+  return (
+    <div className={`bg-white p-3 rounded-lg text-sm flex ${className}`}>
+      <div className="w-1/2">
+
+        <label htmlFor={amountInputId} className="text-black/40 mb-2 inline-block">
+          {label}
+        </label>
+
+        <input
+          className="outline-none w-full bg-transparent py-1.5"
+          id={amountInputId}
+          type="number"
+          placeholder="Amount"
+          disabled={amountDisabled}
+          value={amount}
+          onChange={(e) => onAmountChange && onAmountChange(Number(e.target.value))}
+        />
+
+      </div>
+
+              <div className="w-1/2 flex flex-wrap justify-end text-right">
+
+                <p className="text-black/40 mb-2 w-full">Currency Type</p>
+
+                <select
+                  className="rounded-lg px-1 py-1 bg-gray-100 cursor-pointer outline-none"
+                  value={selectedCurrency}
+                  onChange={(e) => onCurrencyChange && onCurrencyChange(e.target.value)}  
+                  disabled={currencyDisabled}
+                >
+
+                  {currencyOptions.map((currency) => (
+                    <option key={currency} value={currency}>
+                      {currency}
+                    </option> 
+                  ))}
+
+          {/* Note :- If you're noticing that another variable isn't affecting this part of the code, it could be due to a few reasons: */}
+          {/* - Scope Issues: If the other variable is declared outside of the current function or component without being passed in properly, it won't influence this iteration.
+               - State Updates: If the variable is part of a React state, ensure that state changes trigger a re-render. */}
+
+          {/* Note :- key use it because loop ke under perform lani ho to karna chahiye and react rokta nahi par choti si warring dega. */}
+          
+        </select>
+      </div>
+    </div>
+  );
+}
+
+export default InputBox;

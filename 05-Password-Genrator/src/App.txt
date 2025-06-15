@@ -1,0 +1,125 @@
+// Hitesh sir code 
+import './App.css'
+import { useState,useCallback,useEffect,useRef} from 'react';
+function App() {
+  const [length, setLength] = useState(8);
+  const [numberAllowed, setNumberAllowed] = useState(false);
+  const [charAllowed, setCharAllowed] = useState(false);
+  const [password, setPassword] = useState('');
+  const [copied, setCopied] = useState(false);
+
+// useRef hook
+const passwordRef = useRef(null); 
+
+  const passwordGenerator = useCallback(() => {
+    let pass = '';
+    let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+    if(numberAllowed) {
+      str += '0123456789';
+    }
+    if(charAllowed) {
+      str += '!@#$%^&*()_+[]{}|;:,.<>?';
+    }
+
+    for(let i=1; i<=length; i++) {
+      let char = Math.floor(Math.random() * str.length + 1);
+      pass += str.charAt(char);
+    }
+    setPassword(pass);
+  }, [length, numberAllowed, charAllowed, setPassword]);
+
+const copyPassowrdToClipboard = useCallback(()=>{
+  passwordRef.current?.select();
+  passwordRef.current?.setSelectionRange(0, 101);
+  window.navigator.clipboard.writeText(password);
+  setCopied(true);
+},
+[password])
+
+  useEffect(() => {
+    passwordGenerator();
+    setCopied(false);
+  }, [length, numberAllowed, charAllowed, passwordGenerator]);
+
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 py-8 px-4">
+      <div className="w-full max-w-md mx-auto">
+        <h1 className="text-3xl font-bold text-center text-white mb-8">
+          Password Generator
+        </h1>
+        
+        <div className="bg-gray-800 rounded-xl shadow-2xl p-6 border border-gray-700">
+          <div className="flex shadow-lg rounded-lg overflow-hidden mb-6">
+            <input 
+              type="text" 
+              value={password} 
+              className="outline-none w-full py-3 px-4 bg-gray-700 text-white" 
+              placeholder="Password" 
+              readOnly 
+              ref = {passwordRef}
+            />
+            <button 
+              onClick={copyPassowrdToClipboard}
+              className={`outline-none px-4 py-0.5 shrink-0 transition duration-300 ${
+                copied ? 'bg-green-600' : 'bg-blue-600 hover:bg-blue-700'
+              } text-white font-medium`}
+            >
+              {copied ? 'Copied!' : 'Copy'}
+            </button>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="flex flex-col">
+              <label className="text-white mb-2">Length: {length}</label>
+              <input 
+                type="range"
+                min={6}
+                max={100}
+                value={length}
+                className="cursor-pointer accent-blue-600"
+                onChange={(event) => {setLength(event.target.value)}}
+              />
+            </div>
+            
+            <div className="flex space-x-6">
+              <div className="flex items-center gap-x-2">
+                <input 
+                  type="checkbox"
+                  checked={numberAllowed}
+                  id="numberAllowed"
+                  onChange={() => {setNumberAllowed((prev) => !prev)}}
+                  className="w-4 h-4 accent-blue-600" 
+                />
+                <label htmlFor="numberAllowed" className="text-white">Numbers</label>
+              </div>
+              
+              <div className="flex items-center gap-x-2">
+                <input 
+                  type="checkbox"
+                  checked={charAllowed}
+                  id="characterInput"
+                  onChange={() => {setCharAllowed((prev) => !prev)}}
+                  className="w-4 h-4 accent-blue-600" 
+                />
+                <label htmlFor="characterInput" className="text-white">Characters</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App
+
+// Note :- useCallback is a React hook that allows you to memoize a function, preventing it from being recreated on every render unless its dependencies change.
+// The useCallback hook in React is used to cache a function definition between re-renders, improving performance by preventing unnecessary function recreations. 
+// It is particularly useful when passing callbacks to child components that rely on referential equality to avoid unnecessary re-renders.
+
+// Key Features:
+// - Memoizes a function so it doesn’t get recreated on every render.
+// - Optimizes performance when passing functions as props to child components.
+// - Works well with React.memo to prevent unnecessary re-renders.
