@@ -16,19 +16,19 @@ If <SubChild> needs access to global state (like a theme or user info) stored in
 Context API solves this by allowing any component to directly access global state, no matter how deeply nested it is.
 
 # How Does Context API Work?
-1. Create a Context using `React.createContext()`
-2. Provide the context using a `<Context.Provider>` component
+1. Create a Context using 'React.createContext()'
+2. Provide the context using a '<Context.Provider>' component
 3. Consume the context using either:
-     - `useContext()` hook (preferred method)
-     - `<Context.Consumer>` (older approach)
+     -'useContext()' hook (preferred method)
+     - '<Context.Consumer>' (older approach)
 
-## Key Concepts
--  `createContext()` — Initializes context
+# Key Concepts
+-  'createContext()' — Initializes context
 -   Provider — Supplies the data
--  `useContext()` — Reads the data
+-  'useContext()' — Reads the data
 -   No need to pass props manually
 
-## Use Cases
+# Use Cases
 - Theme toggling (light/dark)
 - Authentication state
 - User information
@@ -36,7 +36,7 @@ Context API solves this by allowing any component to directly access global stat
 - Shopping cart in e-commerce apps
 - Any global app-level state
 
-## Important Notes
+# Important Notes
 - Context API is not a replacement for all state management tools like Redux or Zustand
 - Best for global states used in multiple components
 - Overusing context for every small state can degrade performance (since all consumers re-render on context change)
