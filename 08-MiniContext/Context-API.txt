@@ -1,0 +1,46 @@
+# Context API in React
+
+# What is the Context API?
+The Context API is a built-in feature in React used to manage and share state or data globally across components without passing props manually at every level (prop drilling).
+
+# Why is Context API Needed?
+Imagine a React app with deeply nested components:
+
+<App>
+    └── <Parent>
+                └── <Child>
+                            └── <SubChild>
+
+If <SubChild> needs access to global state (like a theme or user info) stored in <App>, we would normally have to pass props through every intermediate component - this is called prop drilling, and it's inefficient.
+
+Context API solves this by allowing any component to directly access global state, no matter how deeply nested it is.
+
+# How Does Context API Work?
+1. Create a Context using `React.createContext()`
+2. Provide the context using a `<Context.Provider>` component
+3. Consume the context using either:
+     - `useContext()` hook (preferred method)
+     - `<Context.Consumer>` (older approach)
+
+## Key Concepts
+-  `createContext()` — Initializes context
+-   Provider — Supplies the data
+-  `useContext()` — Reads the data
+-   No need to pass props manually
+
+## Use Cases
+- Theme toggling (light/dark)
+- Authentication state
+- User information
+- Language switching
+- Shopping cart in e-commerce apps
+- Any global app-level state
+
+## Important Notes
+- Context API is not a replacement for all state management tools like Redux or Zustand
+- Best for global states used in multiple components
+- Overusing context for every small state can degrade performance (since all consumers re-render on context change)
+- Keep logic separate in a provider component to maintain clean structure
+
+> "Keep your context logic in a separate file with a clean folder structure — it scales better as the project grows."
+> ~ Hitesh Choudhary, Chai aur Code
