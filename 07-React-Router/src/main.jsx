@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+// StrictMode is already imported above, removing duplicate import
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
 import Layout from './Layout'
 import Home from './components/Home/Home.jsx'
@@ -8,11 +9,12 @@ import Contact from './components/Contact/Contact.jsx'
 import User from './components/User/User.jsx'
 import Github from './components/Github/Github.jsx'
 import './index.css'
+import { githubInfoLoader } from './components/Github/Github.jsx'
 
-const githubInfoLoader = async () => {
-  const response = await fetch('https://api.github.com/users/ladaniprem')
-  return response.json()
-}
+// const githubInfoLoader = async () => {
+//   const response = await fetch('https://api.github.com/users/ladaniprem')
+//   return response.json()
+// }
 
 // const router = createBrowserRouter([
 //   {

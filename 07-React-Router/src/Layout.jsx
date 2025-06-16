@@ -1,7 +1,8 @@
-// layout alternative me App.jsx me bi kar ja sakta hai same work
+// layout alternative me App.jsx me bi kar ja sakta hai same work 
+// Layout ko some people said as the root component.
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 
 function Layout() {
   return (
