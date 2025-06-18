@@ -1,7 +1,22 @@
+import { useState } from "react";
+import { useTodoContext } from "../Contexts/TodoContext";
+    
+function TodoItem({ todo }) {
+    const [isTodoEditable, setIsTodoEditable] = useState(false);
+    const [todoMsg, setTodoMsg] = useState(todo.title || "");
+    const { updateTodo, deleteTodo, toggleComplete } = useTodoContext();
+    
+    const editTod = () => {
+        updateTodo(todo.id, {...todo, title: todoMsg });
+        setIsTodoEditable(false);
+    }
+
+    const ToggleComplete = () => {
+        toggleComplete(todo.id);
+    }
 
 
-
-    return (
+        return (
       <div
           className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${
               todo.completed ? "bg-[#c6e9a7]" : "bg-[#ccbed7]"
@@ -11,7 +26,7 @@
               type="checkbox"
               className="cursor-pointer"
               checked={todo.completed}
-              onChange={toggleCompleted}
+              onChange={ToggleComplete}
           />
           <input
               type="text"
@@ -29,7 +44,8 @@
                   if (todo.completed) return;
 
                   if (isTodoEditable) {
-                      editTodo();
+                      editTod();
+                      setIsTodoEditable(false);
                   } else setIsTodoEditable((prev) => !prev);
               }}
               disabled={todo.completed}
@@ -44,7 +60,6 @@
               ❌
           </button>
       </div>
-  );
+    );
 }
-
 export default TodoItem;
