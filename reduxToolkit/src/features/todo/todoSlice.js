@@ -1,9 +1,9 @@
 import  { createSlice , nanoid } from '@reduxjs/toolkit';
 
-const initialStaate = {
+const initialState = {
     todos:[
         {
-            id: nanoid(),
+            id: 1,
             title: 'Learn Redux Toolkit',
             completed: false
         }
@@ -12,39 +12,38 @@ const initialStaate = {
 
 export const todoSlice = createSlice({
     name: 'todo',
-    initialState: initialStaate,
+    initialState: initialState,
     reducers:{
         addTodo: (state,action) => {
+            const title = action.payload?.trim() || '';
             const todo = {
                 id: nanoid(),
-                title: action.payload,
+                title: title,
                 completed: false
             }
             state.todos.push(todo);
         },
-        removTodo:(state,action) => {
-            state.todos = state.todos.filter((todo) => 
-                 todo.id !== action.payload );
-            } 
-        },
-            updateTodo: (state,action) => {
-                const todo = state.todos.find((todo) =>
-                todo.id === action.payload.id);
-                if (todo) {
-                    todo.title = action.payload.title;
-                    todo.completed = action.payload.completed;
-                }
-            },
-
-            deleteTodo : (state,action) => {
-                state.todos = state.todos.filter((todo)=>
-                todo.id !== action.payload.id
-                );
-                
+    // removeTodo:(state,action) => {
+    //     state.todos = state.todos.filter((todo) => 
+    //          todo.id !== action.payload );
+    // },
+        updateTodo: (state,action) => {
+            const todo = state.todos.find((todo) =>
+            todo.id === action.payload.id);
+            if (todo) {
+                todo.title = action.payload.title;
+                todo.completed = action.payload.completed;
             }
-        }
-);
+        },
 
-export const { addTodo, removTodo, updateTodo, deleteTodo} = todoSlice.actions;
+    deleteTodo: (state, action) => {
+        state.todos = state.todos.filter((todo) => 
+            todo.id !== action.payload
+        );
+    }
+}
+});
+
+export const { addTodo, deleteTodo,updateTodo} = todoSlice.actions;
 
 export default todoSlice.reducer;
