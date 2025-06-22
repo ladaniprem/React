@@ -2,14 +2,14 @@ import conf from '../conf/Conf.js';
 import { Client, Account, ID } from 'appwrite';
 
 export class AuthService {
-    client = new Client()
+    client = new Client();
     account;
 
     constructor() {
         this.client
             .setEndpoint(conf.appwriteUrl) // Your Appwrite Endpoint
             .setProject(conf.appwriteProjectId); // Your project ID
-            this.account = new Account(this.client);
+        this.account = new Account(this.client);
     }
 
       async createAccount({
@@ -47,7 +47,7 @@ export class AuthService {
           return await this.account.createEmailPasswordSession(email, password);
         } 
         catch (error) {
-            throw new error("Error logging in: " + error.message);
+            throw new Error("Error logging in: " + error.message);
         }
       }
 
@@ -77,3 +77,73 @@ export class AuthService {
 const authServiceInstance = new AuthService();
 
 export default authServiceInstance;
+
+/* 
+/*
+Appwrite Authentication Theory:
+
+1. Authentication Service:
+  - This class manages user authentication using Appwrite's Account service
+  - Handles account creation, login, logout, and session management
+  - Provides stateless authentication via JWT tokens
+  - Manages user sessions securely
+
+2. Key Methods:
+  - createAccount: Creates new user with email/password
+    - Generates unique ID
+    - Validates email format
+    - Enforces password requirements
+    - Auto-logs in on success
+  
+  - login: Creates authenticated session
+    - Validates credentials
+    - Creates session token
+    - Maintains session state
+  
+  - getCurrentUser: Fetches current user info
+    - Checks active session
+    - Returns user profile data
+    - Handles expired sessions
+  
+  - logout: Deletes all active sessions
+    - Revokes access tokens
+    - Clears local session data
+    - Handles multiple devices
+
+3. Security Features:
+  - Uses Appwrite's built-in security
+    - Password hashing (bcrypt)
+    - HTTPS encryption
+    - CSRF protection
+    - Rate limiting
+  - Session management
+    - Token-based auth
+    - Session expiration
+    - Device tracking
+
+4. Error Handling:
+  - Try/catch blocks for all operations
+  - Detailed error messages
+  - Graceful fallbacks
+  - Session recovery
+
+5. Usage Examples:
+  // Create account
+  await authService.createAccount({
+    email: "user@example.com",
+    password: "secure123",
+    name: "User Name"
+  });
+
+  // Login
+  await authService.login({
+    email: "user@example.com",
+    password: "secure123"
+  });
+
+  // Get user
+  const user = await authService.getCurrentUser();
+
+  // Logout
+  await authService.logout();
+*/

@@ -65,7 +65,7 @@ export class AppwriteService {
 
         await this.Databases.deleteDocument(
             conf.appwriteDatabaseId, // database id
-            conf.appwritecollectionId,
+            conf.appwriteCollectionId,
             slug // this the document ID, you can use ID.unique() for a unique ID
         )
 
