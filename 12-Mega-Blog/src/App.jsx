@@ -3,6 +3,8 @@ import { useState,useEffect } from 'react';
 import  { useDispatch } from 'react-redux';
 import  authServiceInstance from './appwrite/auth';
 import {login,logout} from './features/authSlice';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 function App() {
   
    const [loading, setLoading] = useState(true);
@@ -31,10 +33,19 @@ function App() {
       .finally(() => {
         setLoading(false);
       })
-    }, [dispatch]);
+    }, []);
     
   return !loading ? (
-    <div className='min-h-sc'>Mega- Blog</div>
+    <div className='min-h-screen flex flex-wrap content-between bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-500 text-white'>
+      <h1 className='w-full text-center text-3xl font-bold'>Mega-Blog</h1>
+      <div className='w-full block'>
+      <Header />
+      <main>
+       {/* TODO: <Outlet /> */}
+      </main>
+      <Footer />
+      </div>
+    </div>
   ) : null; 
 }
 

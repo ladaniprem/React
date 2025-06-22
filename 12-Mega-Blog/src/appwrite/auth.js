@@ -7,8 +7,8 @@ export class AuthService {
 
     constructor() {
         this.client
-            .setEndpoint(conf.appwriteUrl) // Your Appwrite Endpoint
-            .setProject(conf.appwriteProjectId); // Your project ID
+            .setEndpoint('https://cloud.appwrite.io/v1') // Appwrite Endpoint
+            .setProject(conf.appwriteProjectId); // Replace with actual project ID
         this.account = new Account(this.client);
     }
 

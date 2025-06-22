@@ -1,21 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const intialState = {
+const initialState = {
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     user: null,
 }
 
 const authSlice = createSlice({
     name : "auth",
-    initialState: intialState,
+    initialState: initialState,
     reducers: {
       login : (state,action) => {    // payload refers to the data you send along with an action to update the state.
-           state.status = true;
-           state.userData = action.payload.userData; // Assuming payload contains user data
+           state.status = 'succeeded';
+           state.user = action.payload; // Assuming payload contains user data
       },
       logout: (state) => {
-        state.status = false;
-        state.userData = null; // Clear user data on logout
+        state.status = 'idle';
+        state.user = null; // Clear user data on logout
       }
     }
 })
