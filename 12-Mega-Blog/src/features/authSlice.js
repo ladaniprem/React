@@ -9,17 +9,21 @@ const authSlice = createSlice({
     name : "auth",
     initialState: initialState,
     reducers: {
-      login : (state,action) => {    // payload refers to the data you send along with an action to update the state.
-           state.status = 'succeeded';
-           state.user = action.payload; // Assuming payload contains user data
+      signup: (state, action) => {
+        state.status = 'succeeded';
+        state.user = action.payload;
+      },
+      login: (state, action) => {
+        state.status = 'succeeded';
+        state.user = action.payload;
       },
       logout: (state) => {
         state.status = 'idle';
-        state.user = null; // Clear user data on logout
+        state.user = null;
       }
     }
 })
 
-export const {logout,login} = authSlice.actions; // Export the actions created by createSlice
+export const { signup, logout, login } = authSlice.actions; // Export the actions created by createSlice
 
 export default authSlice.reducer;

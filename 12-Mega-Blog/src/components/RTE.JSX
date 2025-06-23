@@ -1,4 +1,3 @@
-import React from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import { Controller } from 'react-hook-form'
 export default function RTF({name,control,label,defaultValue = ''}) {
@@ -28,7 +27,7 @@ export default function RTF({name,control,label,defaultValue = ''}) {
           control = {control} // control object from react-hook-form their provided the control over the paraent element
            render={({field: {onChange}}) => (
            <Editor
-    initialValue={defaultvalue}
+    initialValue={defaultValue}
     init={
         {
             initialValue: defaultValue,
