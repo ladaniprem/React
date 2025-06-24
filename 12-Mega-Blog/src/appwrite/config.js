@@ -10,8 +10,8 @@ export class AppwriteService {
 
     constructor(){
         this.client
-           .setEndpoint(conf.serviceUrl)
-           .setProject(conf.projectId);
+           .setEndpoint(conf.appwriteEndpoint)
+           .setProject(conf.appwriteProjectId);
            this.Databases = new Databases(this.client);
            this.Storage = new Storage(this.client);
         //    this.Query = Query;
