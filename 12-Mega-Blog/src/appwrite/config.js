@@ -1,5 +1,5 @@
-import conf from '../conf/Conf.js';
 import { Client, Databases, ID, Storage, Query } from 'appwrite';
+import conf from '../conf/Conf';
 
 export class AppwriteService {
 
@@ -10,8 +10,8 @@ export class AppwriteService {
 
     constructor(){
         this.client
-           .setEndpoint(conf.appwriteUrl)
-           .setProject(conf.appwriteProjectId);
+           .setEndpoint(conf.serviceUrl)
+           .setProject(conf.projectId);
            this.Databases = new Databases(this.client);
            this.Storage = new Storage(this.client);
         //    this.Query = Query;
